@@ -1,0 +1,34 @@
+syntax = "proto3";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "/grpc";
+
+package user;
+
+message User {
+  int64 id = 1;
+  string name = 2;
+  google.protobuf.Timestamp createdAt = 4;
+  google.protobuf.Timestamp updatedAt = 5;
+}
+
+message CreateUserRequest {
+  string name = 1;
+  string pwd = 2;
+}
+
+message UpdateUserNameRequest {
+  int64 id = 1;
+  string name = 2;
+}
+
+message UpdateUserPasswordRequest {
+  int64 id = 1;
+  string pwd = 2;
+}
+
+service Users {
+  rpc createUser (CreateUserRequest) returns (User) {}
+  rpc updateUserName (UpdateUserNameRequest) returns (User) {}
+  rpc updateUserPassword (UpdateUserPasswordRequest) returns (User) {}
+}
